@@ -1,11 +1,10 @@
 package com.CraigrRodewald.todo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.CraigRodewlad.login.CalendarEvents;
 
 public class ItemDAO {
 	private static PreparedStatement preparedStatement = null;
@@ -15,7 +14,7 @@ public class ItemDAO {
 
 		try {
 			ArrayList<Item> todoList = new ArrayList<>();
-			DAOConnection.startConnection();
+			Connection connect = DAOConnection.startConnection();
 			preparedStatement = connect.prepareStatement("SELECT * FROM library.calendar");
 			resultSet = preparedStatement.executeQuery();
 
