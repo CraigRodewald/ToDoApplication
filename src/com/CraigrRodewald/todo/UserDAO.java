@@ -15,7 +15,7 @@ public class UserDAO {
 			Connection connect = DAOConnection.startConnection();
 			
 			preparedStatement = connect
-					.prepareStatement("INSERT INTO patrons (first_name, last_name, email, password) VALUES (?,?,?)");
+					.prepareStatement("INSERT INTO users (first_name, last_name, email, password) VALUES (?,?,?)");
 			preparedStatement.setString(1, newUser.getFirstName());
 			preparedStatement.setString(2, newUser.getLastName());
 			preparedStatement.setString(3, newUser.getUserEmail());
@@ -34,14 +34,14 @@ public class UserDAO {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				String userEmail = resultSet.getString("email");
-				System.out.println(userEmail);
+				String userEmail = resultSet.getString("user_email");
 				if (userEmail.equalsIgnoreCase(email)) {
 					User user = new User();
 					user.setFirstName(resultSet.getString("first_name"));
 					user.setLastName(resultSet.getString("last_name"));
-					user.setUserEmail(resultSet.getString("email"));
-					user.setUserPassword(resultSet.getString("password"));
+					user.setUserEmail(resultSet.getString("user_email"));
+					user.setUserPassword(resultSet.getString("user_password"));
+					System.out.println("User Found!");
 					return user;
 				}
 			}

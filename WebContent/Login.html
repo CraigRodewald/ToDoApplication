@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="/ToDoList/js/jquery-1.10.2.js"></script>
 <meta charset="UTF-8">
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $.ajax({url: "ToDoList/LoginServlet", success: function(result){
+            $("#div1").html(result);
+        }});
+    });
+});
+</script>
 <title>ToDo List</title>
 </head>
 <body>
 	<h1>ToDo List Application</h1>
+	<h2>Member Sign In</h2>
 	<br>
 	<form role="form" action="LoginServlet" method="post" class="login-form">
 		<div class="form-group">
@@ -22,5 +33,10 @@
 	
 	
 	</form>
+	
+	<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+	<!-- <script>var formData = JSON.stringify($("#myForm").serializeArray());</script> -->
+	
+	
 </body>
 </html>

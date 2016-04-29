@@ -1,11 +1,16 @@
 package com.CraigrRodewald.todo;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class ToDoListServlet
@@ -34,8 +39,30 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+		String userEmail = request.getParameter("form-email");
+		String userPassword = request.getParameter("form-password");
+
+		try {
+			
+			if (!(userEmail.equals(null)) && !(userPassword.equals(null))) {
+				User user = UserDAO.checkIfMemberExists(userEmail, userPassword);
+
+				if (!(user.equals(null))) {
+					ArrayList<Item> todoList = ItemDAO.retrieveToDoList();
+					request.setAttribute("member", (user.getFirstName() + " " + user.getLastName()));
+					request.setAttribute("eventList", todoList);
+					Gson gson = new Gson();
+					System.out.println(gson.toJson(todoList));
+					response.getWriter().append(gson.toJson(todoList));
+					
+					//getServletContext().getRequestDispatcher("/ToDoList.html").forward(request, (ServletResponse) response.getWriter().append(gson.toJson(todoList)));
+				}
+			}
+			
+		} catch (Exception NullPointerException) {
+			
+			getServletContext().getRequestDispatcher("/NewMember.html").forward(request, response);
+		}
 		
 	}
 

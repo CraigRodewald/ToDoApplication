@@ -15,19 +15,13 @@ public class ItemDAO {
 		try {
 			ArrayList<Item> todoList = new ArrayList<>();
 			Connection connect = DAOConnection.startConnection();
-			preparedStatement = connect.prepareStatement("SELECT * FROM library.calendar");
+			preparedStatement = connect.prepareStatement("SELECT * FROM todolist.items");
 			resultSet = preparedStatement.executeQuery();
-
-			System.out.println("Upcoming events:");
 
 			while (resultSet.next()) {
 				Item item = new Item();
-				item.setItemName(resultSet.getString("event_name"));
+				item.setItemName(resultSet.getString("item_name"));
 				todoList.add(item);
-			}
-
-			for (Item item: todoList) {
-				System.out.println(item.getItemName());
 			}
 
 			return todoList;
@@ -35,8 +29,23 @@ public class ItemDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return null;
+	}
+	
+	public static void addNewItemToDatabase(Item newItem) {
 
+		try {
+			Connection connect = DAOConnection.startConnection();
+			
+			preparedStatement = connect
+					.prepareStatement("INSERT INTO items (item_name) VALUES (?)");
+			preparedStatement.setString(1, newItem.getItemName());
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

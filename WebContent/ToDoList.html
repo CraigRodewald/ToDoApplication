@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="/ToDoList/js/jquery-1.10.2.js"></script>
 <meta charset="UTF-8">
 <title>ToDo List</title>
 </head>
 <body>
 	<h1>ToDo Application</h1>
 	<h2>The list</h2>
-	<form role="form" action="LoginServlets" method="post" class="login-form">
+	<form role="form" action="ToDoListServlet" method="post" class="login-form">
 		<div class="form-group">
 			<label class="sr-only" for="form-todo_item"></label> <input type="text" name="form-todo_item"
 				placeholder="Enter a ToDo item..."
-				class="form-email form-control" id="form-email">
+				class="form-email form-control" id="form-todo_item">
 		</div>
 		<br>
 		<button type="submit" class="btn">Add Item</button>
 	</form>
 	<br>
 	<h3>Your ToDo List</h3>
+	<div id="div1"><p>Your List is empty</p></div>
+	
 </body>
 </html>
