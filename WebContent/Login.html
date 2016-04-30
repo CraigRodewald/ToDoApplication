@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="/ToDoList/js/jquery-1.10.2.js"></script>
-<meta charset="UTF-8">
+<!-- <script src="/ToDoList/js/jquery-1.10.2.js"></script> -->
 <script>
-$(document).ready(function(){
-    $("button").click(function(){
-        $.ajax({url: "ToDoList/LoginServlet", success: function(result){
-            $("#div1").html(result);
-        }});
-    });
-});
-</script>
+$.ajax(
+    type:'Post',
+    url:"http://localhost:8080/ToDoList/ToDoListServlet",
+    data:$('data').serialize(),
+    success:function(data) {
+        document.write(data)}))
+    
+var todoList = JSON.parse(data);
+var item = todoList.item_name;
+document.getElementById("btn").addEventListener("click", 
+		function(){
+			document.getElementById("demo").innerHTML = item_name
+			})
+    </script>
+<meta charset="UTF-8">
+
 <title>ToDo List</title>
 </head>
 <body>
 	<h1>ToDo List Application</h1>
 	<h2>Member Sign In</h2>
 	<br>
-	<form role="form" action="LoginServlet" method="post" class="login-form">
+	<form role="form" action="LoginServlet" method="post"
+		class="login-form">
 		<div class="form-group">
-			<label class="sr-only" for="form-email"></label> <input type="text" name="form-email"
-				placeholder="Enter your email here..."
-				class="form-email form-control" id="form-email">
-				<br>
-			<label class="sr-only" for="form-password"></label> <input type="text" name="form-password"
-				placeholder="Password..."
-				class="form-password form-control" id="form-password">	
+			<label class="sr-only" for="form-email"></label> <input type="text"
+				name="form-email" placeholder="Enter your email here..."
+				class="form-email form-control" id="form-email"> <br> <label
+				class="sr-only" for="form-password"></label> <input type="password"
+				name="form-password" placeholder="Password..."
+				class="form-password form-control" id="form-password">
 		</div>
 		<br>
-		<button type="submit" class="btn">Sign in!</button>
-	
-	
+		<button type="button" id="btn">Sign in!</button>
+
+		<div id="demo">Empty</div>
+
 	</form>
-	
-	<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
-	<!-- <script>var formData = JSON.stringify($("#myForm").serializeArray());</script> -->
-	
-	
+
+
+	<script>
+	</script>
+
+	<!-- <script>var todoList = JSON.stringify($("#myForm").serializeArray());</script> -->
+
+
 </body>
 </html>
