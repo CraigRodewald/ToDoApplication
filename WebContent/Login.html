@@ -1,23 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="/ToDoList/js/jquery-1.10.2.js"></script>
+<script src="/ToDoList/js/jquery-1.12.3.js"></script>
+
 <script>
-
-
+	function login() {
+		
+		    $(document).ajaxError(function(){
+		        alert("An error occured!");
+		    });
+		    
+		    var userName = $('#form-email').val();
+		    var passWord = $('#form-password').val();
+		    
+		    console.log(userName +""+ passWord);
+		
 		$.ajax({
-		    type:'Post',
-		    url:"http://localhost:8080/ToDoList/LoginServlet",
-		    data:$('data').serialize(),
-		    success:function(data) {
-		    	console.log("inside success function");
-		    //	console.log(data);
-		   //     document.write(data)}))
+			type : 'Get',
+			url : "http://localhost:8080/ToDoList/LoginServlet?form-email=" + userName +"&form-password="+ passWord,
+			error : function(xhr, status, error) {
+				var err = eval("(" + xhr.responseText + ")");
+				alert(err.Message);
+			},
+			success : function(data) {
+				console.log("inside success function");
+				console.log(data);
+				//     document.write(data)}))
 
-		//var todoList = JSON.parse(data);
-		//var item = todoList.item_name[0];
-		}});
-    </script>
+				var todoList = JSON.parse(data);
+				$('#changeMe')[0].innerHTML = todoList[0].itemName;
+			}
+		
+		});
+		
+		return false;
+		
+}
+</script>
+
 <meta charset="UTF-8">
 
 <title>ToDo List</title>
@@ -26,25 +46,23 @@
 	<h1>ToDo List Application</h1>
 	<h2>Member Sign In</h2>
 	<br>
-	<form role="form" action="LoginServlet" method="post"
-		class="login-form">
+	<form role="form" class="login-form" onsubmit="return login();">
 		<div class="form-group">
 			<label class="sr-only" for="form-email"></label> <input type="text"
-				name="form-email" placeholder="Enter your email here..."
+				name="form-email" id='form-email' placeholder="Enter your email here..."
 				class="form-email form-control" id="form-email"> <br> <label
 				class="sr-only" for="form-password"></label> <input type="password"
-				name="form-password" placeholder="Password..."
+				name="form-password" id='form-password' placeholder="Password..."
 				class="form-password form-control" id="form-password">
 		</div>
 		<br>
-		<button type="button" id="btn">Sign in!</button>
+		<button id="btn" type="submit" >Sign in!</button>
 
 		<div id="changeMe">Empty</div>
 
 	</form>
 
 	<!-- <script>var todoList = JSON.stringify($("data").serializeArray());</script> -->
-
 
 </body>
 </html>

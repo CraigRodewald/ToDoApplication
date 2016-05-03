@@ -7,7 +7,7 @@ public class DAOConnection {
 	public static Connection connect = null;
 	
 	public static Connection startConnection() {
-		String dbURL = "jdbc:mysql://localhost:3306/library?";
+		String dbURL = "jdbc:mysql://localhost:3306/todolist?";
 		String userName = "root";
 		String password = "sesame";
 		

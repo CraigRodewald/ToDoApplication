@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class ToDoListServlet
  */
-@WebServlet("/Login0.Servlet")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doPost(request, response);
 	}
 
 	/**
@@ -42,10 +42,19 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			
+			System.out.println("calling server");
+			System.out.println(userEmail);
+			System.out.println(userPassword);
+			
 			if (userEmail != null && userPassword != null) {
 				User user = UserDAO.checkIfMemberExists(userEmail, userPassword);
 
-				if (user != null) {
+				System.out.println(user.getFirstName());
+				
+				if (user!=null) {
+					
+					System.out.println("Getting info");
+					
 					ArrayList<Item> todoList = ItemDAO.retrieveToDoList();
 					request.setAttribute("member", (user.getFirstName() + " " + user.getLastName()));
 					request.setAttribute("eventList", todoList);
@@ -59,8 +68,9 @@ public class LoginServlet extends HttpServlet {
 			
 		} catch (Exception NullPointerException) {
 			
-			getServletContext().getRequestDispatcher("/NewMember.html").forward(request, response);
+	//		getServletContext().getRequestDispatcher("/NewMember.html").forward(request, response);
 		}
+		
 		
 	}
 
