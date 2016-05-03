@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class ToDoListServlet
  */
-@WebServlet("/LoginServlet")
+@WebServlet("/Login0.Servlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,8 +30,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -44,10 +42,10 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			
-			if (!(userEmail.equals(null)) && !(userPassword.equals(null))) {
+			if (userEmail != null && userPassword != null) {
 				User user = UserDAO.checkIfMemberExists(userEmail, userPassword);
 
-				if (!(user.equals(null))) {
+				if (user != null) {
 					ArrayList<Item> todoList = ItemDAO.retrieveToDoList();
 					request.setAttribute("member", (user.getFirstName() + " " + user.getLastName()));
 					request.setAttribute("eventList", todoList);

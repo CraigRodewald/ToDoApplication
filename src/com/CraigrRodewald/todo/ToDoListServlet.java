@@ -45,7 +45,7 @@ public class ToDoListServlet extends HttpServlet {
 		String userItem = request.getParameter("form-todo_item");
 		try {
 
-			if (!(userItem.equals(null))) {
+			if (userItem != null) {
 				Item newItem = new Item();
 				newItem.setItemName(userItem);
 				ItemDAO.addNewItemToDatabase(newItem);

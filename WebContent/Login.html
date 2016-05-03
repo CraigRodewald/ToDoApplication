@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <script src="/ToDoList/js/jquery-1.10.2.js"></script> -->
+<script src="/ToDoList/js/jquery-1.10.2.js"></script>
 <script>
-$.ajax(
-    type:'Post',
-    url:"http://localhost:8080/ToDoList/ToDoListServlet",
-    data:$('data').serialize(),
-    success:function(data) {
-        document.write(data)}))
-    
-var todoList = JSON.parse(data);
-var item = todoList.item_name;
-document.getElementById("btn").addEventListener("click", 
-		function(){
-			document.getElementById("demo").innerHTML = item_name
-			})
+
+
+		$.ajax({
+		    type:'Post',
+		    url:"http://localhost:8080/ToDoList/LoginServlet",
+		    data:$('data').serialize(),
+		    success:function(data) {
+		    	console.log("inside success function");
+		    //	console.log(data);
+		   //     document.write(data)}))
+
+		//var todoList = JSON.parse(data);
+		//var item = todoList.item_name[0];
+		}});
     </script>
 <meta charset="UTF-8">
 
@@ -38,15 +39,11 @@ document.getElementById("btn").addEventListener("click",
 		<br>
 		<button type="button" id="btn">Sign in!</button>
 
-		<div id="demo">Empty</div>
+		<div id="changeMe">Empty</div>
 
 	</form>
 
-
-	<script>
-	</script>
-
-	<!-- <script>var todoList = JSON.stringify($("#myForm").serializeArray());</script> -->
+	<!-- <script>var todoList = JSON.stringify($("data").serializeArray());</script> -->
 
 
 </body>
